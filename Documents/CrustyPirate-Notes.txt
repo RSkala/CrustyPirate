@@ -27,6 +27,13 @@ TODO: Probably disable Bloom as well
   * Editor -> Paper 2D - Import:
     * Default Pixels Per Unreal Unit: 0.5
 
+All Textures -> Apply Paper 2D Texture Settings
 
+---------------------------
+CrustyPirate.Build.cs
+C:\Dev\Udemy\2DCourseProjects\CrustyPirate\Source\CrustyPirate\CrustyPirate.Build.cs
+
+* Add "Paper2D" to PublicDependencyModuleNames
+PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "Paper2D" });
 
 ==================================================================================
