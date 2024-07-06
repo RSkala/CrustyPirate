@@ -13,5 +13,20 @@ https://pixelfrog-assets.itch.io/treasure-hunters
 ==================================================================================
 61. Creating the Project
 
+Default Level/Map: L_Level_1
+
+Settings:
+* Edit -> Project Settings:
+  * Engine -> Rendering -> Default Settings:
+    * Motion Blur: OFF
+    * Auto Exposure: OFF
+    * Auto Exposure: Manual
+    * Auto Exposure Bias:  0.0
+    * Anti-Aliasing Method:  None
+TODO: Probably disable Bloom as well
+  * Editor -> Paper 2D - Import:
+    * Default Pixels Per Unreal Unit: 0.5
+
+
 
 ==================================================================================
