@@ -56,3 +56,26 @@ Then setting proper "Frame Rates" for the Flipbooks
 ------------------------------
 
 ==================================================================================
+63. Tile Sets
+
+First, you need to create a TileSet from a Texture.
+Then, you need to create a TileMap from the TileSet.
+
+1. Have Texture asset
+2. Create TileSet from Texture
+3. Create TileMap from TileSet
+
+Create TileSet:
+* Right-click Texture -> Sprite Actions -> Create TileSet
+  * Naming Convention:  TS_<tileset-name>
+  * Open TileSet, set the Tile Size
+
+Assigning Collision Data for Tiles:
+* Select a Tile -> Top Menu -> Add Box
+  * In the Single Tile Editor, you can select the collision and also select individual vertices.
+  * You can adjust the size of the collision boxes by selecting vertices and dragging to resize the box shape
+    * Can also select the line (edge of the box collision) and it will select the entire line to adjust.
+
+Note: You can use multiple TileSets in a single TileMap!
+
+==================================================================================
