@@ -37,3 +37,22 @@ C:\Dev\Udemy\2DCourseProjects\CrustyPirate\Source\CrustyPirate\CrustyPirate.Buil
 PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "Paper2D" });
 
 ==================================================================================
+62. Sprites and Flipbooks
+
+-------------------------------
+Standard Flipbook Workflow:
+Sprite Actions -> Extract Sprites
+-> Sprite Extract Mode: Grid, adjust Cell Width and Height -> Extract
+
+Select all extracted Sprites -> Create Flipbook
+
+NAME: PFB_<flipbook-name>
+e.g. PFB_Captain_Attack
+
+Drag into Flipbooks folder for that character / object
+
+Then setting proper "Frame Rates" for the Flipbooks
+* Select All -> Right-click -> Asset Actions -> Edit Selection in Property Matrix
+------------------------------
+
+==================================================================================
