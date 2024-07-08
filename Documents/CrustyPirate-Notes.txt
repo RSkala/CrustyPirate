@@ -321,3 +321,29 @@ Open B_PlayerCharacter -> Spring Arm:
   * This makes it so that the SpringArm isnt affected by the SetControlRotation() we are making
 
 ==================================================================================
+69. Animation Source
+
+Previously, we used SetFlipbook to set the Flipbook of a character.
+This works for simple logic, but gets difficult to manage when using many different flipbooks.
+
+PaperZD provides three classes:
+* AnimationSequence: A single Animation (e.g. Jump, Walk, Attack)
+* AnimationSource:   A group of AnimationSequences
+* PaperZD AnimBP:    What determines what animation should play at a given time
+
+
+First create AnimationSource:
+* Right-click -> PaperZD -> Animation Source
+* Click +Add New to add a new AnimSequence
+  * Doing this creates a NEW ASSET. There will be a NEW AnimationSequence asset created for each one added here
+    * 
+  * Animation Data: Select the Flipbook
+    * Note: If the sprite looks blurry, just double-click the another AnimationSequnce, and then go back to it
+
+Animation Source Timeline:
+* Adding Sounds:
+  * In the Timeline, right-click -> Add Notify -> Play Sound
+    * Select the Notify and on the right, you can select the Sound to play at that time
+  * Can also add Notify Tracks 
+
+==================================================================================
