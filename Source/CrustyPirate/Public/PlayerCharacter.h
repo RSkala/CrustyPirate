@@ -13,15 +13,44 @@ class CRUSTYPIRATE_API APlayerCharacter : public APaperZDCharacter
 
 public:
 	APlayerCharacter();
+
+	// public, from ACharacter
 	virtual void BeginPlay() override;
 
-protected:
+	// public, from AActor
 	virtual void Tick(float DeltaTime) override;
 
+	// public, from ACharacter
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
 protected:
+	// Functions to Bind to our InputActions:
+
+	void Move(const struct FInputActionValue& InputActionValue);
+	void JumpStarted(const struct FInputActionValue& InputActionValue);
+	void JumpEnded(const struct FInputActionValue& InputActionValue);
+	void Attack(const struct FInputActionValue& InputActionValue);
+
+protected:
+	// --- Components ---
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<class USpringArmComponent> SpringArmComp;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<class UCameraComponent> CameraComp;
+
+	// --- Input ---
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TObjectPtr<class UInputMappingContext> InputMappingContext;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TObjectPtr<class UInputAction> MoveInputAction;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TObjectPtr<class UInputAction> JumpInputAction;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	TObjectPtr<class UInputAction> AttackInputAction;
 };

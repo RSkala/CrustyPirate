@@ -198,4 +198,45 @@ BP_PlayerCharacter settings:
     * Note: My values were different for some reason. Half his values. Possibly PPU settings are different.
 
 ==================================================================================
+66. The Input System
 
+InputAction & InputMappingContext
+* IA_Move:  Axis1D (float), since we are only moving side to side
+* IA_Attack & IA_Jump:  Digital (bool), since these are just essentially button presses
+
+These are the include files needed for Input:
+#include "Components/InputComponent.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
+#include "InputActionValue.h"
+#include "GameFramework/Controller.h"
+
+Properties for Input:
+  UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+  TObjectPtr<class UInputMappingContext> InputMappingContext;
+
+  UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+  TObjectPtr<class UInputAction> MoveInputAction;
+
+  UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+  TObjectPtr<class UInputAction> JumpInputAction;
+
+  UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+  TObjectPtr<class UInputAction> AttackInputAction;
+
+Functions for Input:
+  // public, from ACharacter
+  virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+
+Add Mapping Context, in BeginPlay:
+
+  if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+  {
+    if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+    {
+      Subsystem->AddMappingContext(InputMappingContext, 0);
+    }
+  }
+
+==================================================================================
