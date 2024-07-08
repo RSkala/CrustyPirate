@@ -31,6 +31,8 @@ protected:
 	void JumpEnded(const struct FInputActionValue& InputActionValue);
 	void Attack(const struct FInputActionValue& InputActionValue);
 
+	void UpdateDirection(float MoveDirection);
+
 protected:
 	// --- Components ---
 

@@ -278,3 +278,46 @@ CharacterMovement (CharacterMovementComponent):
   * Air Control: 1 (previous: 0.05)
 
 ==================================================================================
+68. Turning Left and Right
+
+Rotate the Entire Actor
+* Unlike the other project, we need to rotate the whole actor (and not just the flipbook)
+* This is because we need the movement to be updated properly, since we are using a movement controller
+
+Set the Rotation Using:
+void AController::SetControlRotation(const FRotator& NewRotation)
+* Notice in this case, we do not need to Cast to APlayerController
+
+FRotator
+Pass in an FRotator to SetControlRotation.
+Has 3 Values:
+* Pitch
+* Roll
+* Yaw
+
+Roll:  Rotation around X (forward) axis
+Pitch: Rotation around Y (right) axis
+Yaw:   Rotation around Z (up) axis
+
+IMPORTANT:
+Constructor has the following signature:
+FORCEINLINE TRotator( T InPitch, T InYaw, T InRoll );
+
+Moving Left:
+        FRotator NewRotation = FRotator(CurrentPlayerRotation.Pitch, 180.0f, CurrentPlayerRotation.Roll);
+        Controller->SetControlRotation(NewRotation);
+
+Moving Right:
+        FRotator NewRotation = FRotator(CurrentPlayerRotation.Pitch, 0.0f, CurrentPlayerRotation.Roll);
+        Controller->SetControlRotation(NewRotation);
+
+----------------------------------------------------
+IMPORTANT: 
+When turning, the camera seems to jitter.
+This is likely do to Camera settings
+
+Open B_PlayerCharacter -> Spring Arm:
+* Transform -> Rotation:  Change Rotation from Relative to World
+  * This makes it so that the SpringArm isnt affected by the SetControlRotation() we are making
+
+==================================================================================

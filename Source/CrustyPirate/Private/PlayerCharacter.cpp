@@ -78,6 +78,7 @@ void APlayerCharacter::Move(const FInputActionValue& InputActionValue)
 	{
 		FVector MovementDirection = FVector(1.0f, 0.0f, 0.0f); // Could also use FVector::ForwardVector (since we are in XZ plane and +X is FORWARD)
 		AddMovementInput(MovementDirection, MoveActionValue); // AddMovementInput() is from APawn
+		UpdateDirection(MoveActionValue);
 
 		// NOTE: We do not need to handle speed here, as that is handled in the Blueprint
 	}
@@ -104,4 +105,45 @@ void APlayerCharacter::JumpEnded(const FInputActionValue& InputActionValue)
 void APlayerCharacter::Attack(const FInputActionValue& InputActionValue)
 {
 	UE_LOG(LogPlayerCharacter, Log, TEXT("APlayerCharacter::Attack - %s"), *GetName());
+}
+
+void APlayerCharacter::UpdateDirection(float MoveDirection)
+{
+	UE_LOG(LogPlayerCharacter, Log, TEXT("APlayerCharacter::UpdateDirection - %s"), *GetName());
+
+	if (Controller != nullptr)
+	{
+		// We want to rotate the player around the Z (Up) Axis (which is the "Yaw")
+		FRotator CurrentPlayerRotation = Controller->GetControlRotation();
+		if (MoveDirection < 0.0f)
+		{
+			if (!FMath::IsNearlyEqual(CurrentPlayerRotation.Yaw, 180.0f))
+			{
+				// TEST: Check using IsNearlyEqual
+				UE_LOG(LogTemp, Warning, TEXT("NOT IsNearlyEqual to 180"));
+			}
+
+			// Player moving left
+			if (CurrentPlayerRotation.Yaw != 180.0f)
+			{
+				FRotator NewRotation = FRotator(CurrentPlayerRotation.Pitch, 180.0f, CurrentPlayerRotation.Roll);
+				Controller->SetControlRotation(NewRotation);
+			}
+		}
+		else if (MoveDirection > 0.0f)
+		{
+			if (!FMath::IsNearlyEqual(CurrentPlayerRotation.Yaw, 0.0f))
+			{
+				// TEST: Check using IsNearlyEqual
+				UE_LOG(LogTemp, Warning, TEXT("NOT IsNearlyEqual to 0"));
+			}
+
+			// Player moving right
+			if (CurrentPlayerRotation.Yaw != 0.0f)
+			{
+				FRotator NewRotation = FRotator(CurrentPlayerRotation.Pitch, 0.0f, CurrentPlayerRotation.Roll);
+				Controller->SetControlRotation(NewRotation);
+			}
+		}
+	}
 }
