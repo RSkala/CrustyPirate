@@ -152,3 +152,50 @@ Also:
 * It seems when "conditioning" the texture, the "Mip Gen Settings" on the texture are reset, so you need to change back to Mip Gen Setting:s No MipMaps. I don't know if it's "safe" to Apply Paper2D Texture settings on this new "padded" texture.
 
 ==================================================================================
+65. Player and Game Mode
+
+PaperZDCharacter
+Inheriting from PaperZDCharacter
+* PaperZDCharacter inherits from PaperCharacter which inherits from Character.
+* Character has a CharacterMovementComponent
+* We will use the CharacterMovementComponent for the player
+* PaperZDCharacter also has an AnimationComponent.
+
+Components:
+* Because Character already has a CapsuleComponent, we do not need to create it in the constructor.
+* With PaperZDCharacter:
+  * CapsuleComponent
+  * AnimationComponent
+  * FlipbookComponent
+  * CharacterMovementComponent
+* We still need to create a SpringArmComponent and a CameraComponent
+
+PlayerCharacter
+BP_PlayerCharacter
+
+NOTE:
+* In PaperZDCharacter, they named the PaperFlipbookComponent "Sprite" for some reason
+* Actually, this is in PaperCharacter():
+  FName APaperCharacter::SpriteComponentName(TEXT("Sprite0"));
+  Sprite = CreateOptionalDefaultSubobject<UPaperFlipbookComponent>(APaperCharacter::SpriteComponentName);
+
+BP_PlayerCharacter settings:
+* Sprite
+  * Source flipbook: PFB_Captain_Idle
+  * Material: TranslucentUnlitSpriteMaterial
+  * Collision Presets: NoCollision
+  * Translucency Sort Priority: 100
+* SpringArm
+  * Rotation: Z: -90 degrees
+  * Do Collision Test: FALSE
+* Camera
+  * Projection Mode: Orthographic
+  * Ortho Width:  1024
+  * Scale: 0.01 (so the camera is not visible and blocking our view)
+* CapsuleComponent:
+  * Capsule Radius: 7
+  * Capsule Half Height: 12
+    * Note: My values were different for some reason. Half his values. Possibly PPU settings are different.
+
+==================================================================================
+
