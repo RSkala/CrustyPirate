@@ -53,4 +53,12 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	TObjectPtr<class UInputAction> AttackInputAction;
+
+	// --- Lifetime / Movement
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool bIsAlive = true;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool bCanMove = true;
 };

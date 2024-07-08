@@ -240,3 +240,41 @@ Add Mapping Context, in BeginPlay:
   }
 
 ==================================================================================
+67. Running and Jumping
+
+Binding Input Actions to Functions:
+void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+  UE_LOG(LogPlayerCharacter, Log, TEXT("APlayerCharacter::SetupPlayerInputComponent - %s"), *GetName());
+  Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+  // Set up Input Action Binding
+  if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+  {
+    // Move
+    EnhancedInputComponent->BindAction(MoveInputAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
+
+    // Jump
+    EnhancedInputComponent->BindAction(JumpInputAction, ETriggerEvent::Started, this, &ThisClass::JumpStarted);
+    EnhancedInputComponent->BindAction(JumpInputAction, ETriggerEvent::Completed, this, &ThisClass::JumpEnded);
+    EnhancedInputComponent->BindAction(JumpInputAction, ETriggerEvent::Canceled, this, &ThisClass::JumpEnded);
+
+    // Attack
+    EnhancedInputComponent->BindAction(AttackInputAction, ETriggerEvent::Started, this, &ThisClass::Attack);
+  }
+}
+
+-----------------------------------------------
+BP_PlayerCharacter:
+
+CharacterMovement (CharacterMovementComponent):
+* Character Movement (General Settings)
+  * Gravity Scale: 2.0 (previous 1)
+* Character Movement (Walking)
+  * Max Walk Speed:  300 cm.s (previous: 600cm/s)
+* Character Movement (Jump and Falling)
+  * Jump Z Velocity: 600 cm/s (previous: 420)
+    * We needed to increase this as we increased the gravity scale, so we have to compensate
+  * Air Control: 1 (previous: 0.05)
+
+==================================================================================

@@ -55,23 +55,50 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	// Set up Input Action Binding
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		// TODO
+		// Move
+		EnhancedInputComponent->BindAction(MoveInputAction, ETriggerEvent::Triggered, this, &ThisClass::Move);
+
+		// Jump
+		EnhancedInputComponent->BindAction(JumpInputAction, ETriggerEvent::Started, this, &ThisClass::JumpStarted);
+		EnhancedInputComponent->BindAction(JumpInputAction, ETriggerEvent::Completed, this, &ThisClass::JumpEnded);
+		EnhancedInputComponent->BindAction(JumpInputAction, ETriggerEvent::Canceled, this, &ThisClass::JumpEnded);
+
+		// Attack
+		EnhancedInputComponent->BindAction(AttackInputAction, ETriggerEvent::Started, this, &ThisClass::Attack);
 	}
 }
 
 void APlayerCharacter::Move(const FInputActionValue& InputActionValue)
 {
 	UE_LOG(LogPlayerCharacter, Log, TEXT("APlayerCharacter::Move - %s"), *GetName());
+
+	float MoveActionValue = InputActionValue.Get<float>();
+
+	if (bIsAlive && bCanMove)
+	{
+		FVector MovementDirection = FVector(1.0f, 0.0f, 0.0f); // Could also use FVector::ForwardVector (since we are in XZ plane and +X is FORWARD)
+		AddMovementInput(MovementDirection, MoveActionValue); // AddMovementInput() is from APawn
+
+		// NOTE: We do not need to handle speed here, as that is handled in the Blueprint
+	}
 }
 
 void APlayerCharacter::JumpStarted(const FInputActionValue& InputActionValue)
 {
 	UE_LOG(LogPlayerCharacter, Log, TEXT("APlayerCharacter::JumpStarted - %s"), *GetName());
+
+	if (bIsAlive && bCanMove)
+	{
+		Jump(); // Jump() is from ACharacter / CharacterMovementComponent
+
+		// NOTE: We handle and setup all "Jump" values from the Blueprint
+	}
 }
 
 void APlayerCharacter::JumpEnded(const FInputActionValue& InputActionValue)
 {
 	UE_LOG(LogPlayerCharacter, Log, TEXT("APlayerCharacter::JumpEnded - %s"), *GetName());
+	StopJumping(); // StopJumping() is from ACharacter / CharacterMovementComponent
 }
 
 void APlayerCharacter::Attack(const FInputActionValue& InputActionValue)
