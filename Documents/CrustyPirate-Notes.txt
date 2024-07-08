@@ -58,12 +58,15 @@ Then setting proper "Frame Rates" for the Flipbooks
 ==================================================================================
 63. Tile Sets
 
-First, you need to create a TileSet from a Texture.
-Then, you need to create a TileMap from the TileSet.
+-----------------------------------------------------
+TileSet / TileMap Workflow:
+* First, you need to create a TileSet from a Texture.
+* Then, you need to create a TileMap from the TileSet.
 
 1. Have Texture asset
 2. Create TileSet from Texture
 3. Create TileMap from TileSet
+-----------------------------------------------------
 
 Create TileSet:
 * Right-click Texture -> Sprite Actions -> Create TileSet
@@ -77,5 +80,75 @@ Assigning Collision Data for Tiles:
     * Can also select the line (edge of the box collision) and it will select the entire line to adjust.
 
 Note: You can use multiple TileSets in a single TileMap!
+
+==================================================================================
+64. TileMaps
+
+Create TileMap:
+* Right-click a TileSet -> Create TileMap
+
+Editing a TileMap:
+* Paint (B), Erase (E), Fill Tools (G)
+
+* Select a Tile and click in the TileMap Preview
+* Hold hold and drag to select and Paint multiple tiles at once
+* Hold Shift in the TileMap editor to "Grab" and select a section to copy and Paint with
+  * Note: Paint mode must be selected
+
+
+* Change the Active TileSet:
+  * Below the Tools, select "Active Tile Set"
+
+------------------------------------------
+Changing the TileMap in Details
+* Setup
+  * Map Width  : 30
+  * Map Height : 30
+  * Material:   TranslucentUnlitSpriteMaterial
+
+
+------------------------------------------
+TileMap Layers
+* Layer on Top is displayed before the one on the bottom
+* Layers can also be Renamed
+* To turn collision OFF a Layer, select the layer:
+  * Details -> Selected Layer -> Layer Collides: FALSE
+
+------------------------------------------
+Place TileMap In Game
+* Simply Drag TileMap into the Viewport
+
+Details:
+* Rendering -> Advanced -> Translucency Sort Priority
+  * Change this to make sure the 2D sorting is correct.
+  * Leaving it at 0
+
+-----------------------------------------
+Conditioning TileSets
+IMPORTANT:
+* If you get strange lines in your tilemap either while running or in the TileMap editor:
+  * In the Tilemap Editor, you may be dotted red lines and in game it may look like black lines
+* Your TileSet needs to be CONDITIONED.
+* IMPORTANT NOTE:
+  * Make sure your TileMap changes are saved and committed to version control before "conditioning"!
+  * Conditioning seems to add extra pixels around the tiles or something
+
+Right-click the TileSet (NOT the TileMap):
+* Tile Set Actions -> Condition Tile Sheet Texture
+  * This creates a NEW Texture asset called <Texture-Name>_Padded
+    * The Texture is created from the Texture the TileMap was originally referencing
+  * These new textures have "edges" created in the texture to prevent the "gaps" (which cause the lines)
+  * The TileSets NOW have a NEW texture referenced in Details -> Tile Set -> Tile Sheet Texture
+    * Example:
+      * Tile Sheet Texture used to be:   Platforms__32x32
+      * Tile Sheet Texture is NOW:       Platforms__32x32_Padded  (which is a NEW texture)
+
+Notice now in the TileSet that the following has changed:
+* Tile Sheet Texture (as mentioned above)
+* Border Margin (originally all 0's)
+* Per-Tile Spacing (originally X,Y: 0,0.  Then changes to 4,4 by default I believe, not sure)
+
+Also:
+* It seems when "conditioning" the texture, the "Mip Gen Settings" on the texture are reset, so you need to change back to Mip Gen Setting:s No MipMaps.
 
 ==================================================================================
