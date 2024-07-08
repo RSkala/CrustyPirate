@@ -149,6 +149,6 @@ Notice now in the TileSet that the following has changed:
 * Per-Tile Spacing (originally X,Y: 0,0.  Then changes to 4,4 by default I believe, not sure)
 
 Also:
-* It seems when "conditioning" the texture, the "Mip Gen Settings" on the texture are reset, so you need to change back to Mip Gen Setting:s No MipMaps.
+* It seems when "conditioning" the texture, the "Mip Gen Settings" on the texture are reset, so you need to change back to Mip Gen Setting:s No MipMaps. I don't know if it's "safe" to Apply Paper2D Texture settings on this new "padded" texture.
 
 ==================================================================================
