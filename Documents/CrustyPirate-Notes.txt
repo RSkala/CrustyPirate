@@ -347,3 +347,38 @@ Animation Source Timeline:
   * Can also add Notify Tracks 
 
 ==================================================================================
+70. Animation Blueprint
+
+PaperZD Animation Blueprint:
+* In order to create a PaperZD Animation Blueprint, you must have an Animation Source already created.
+* When creating a PZDABP, it first asks for an Animation Source, and you can't create an ABP without it
+* Right click -> PaperZD -> PaperZD Anim BP 
+
+In Player Character, which is a APaperZDCharacter:
+* Select the Animation Component:
+  * PaperZD -> Anim Instance Class:  ABP_Captain
+  * This player character can now use the animation blueprint
+
+Animation Blueprints:
+* Have access to all the AnimationSequences set up in the AnimationSource
+  * Right-click -> Animation -> you can see the list of animations to play
+  * Run logic and select to "Output Animation"
+* Example Usages:
+  * Select Animation by Bool
+  * GetOwningActor (function on PaperZD), set as variable BP_PlayerCharacter, so we can access in AnimationGraph
+
+State Machine:
+* Better solution for selecting animations
+* Right-click in AnimGraph -> State Machine -> Add New State Machine
+* Double-click the new StateMachine node to enter the State Machine graph
+
+Animation States:
+* Inside a StateMachine, right-click -> Nodes -> Animation State
+* Left-click hold from the edge of an AnimationState node and drag to another AnimationState node's edge to create Transitions.
+* Drag from the 2nd node back to the first to create a Transition back to the original
+  * e.g. Idle -> Run, Run -> Idle
+* Above the Transition line, you will see a circle with arrows. This is the Transition Rule.
+* Double click to enter the Transition Rule
+
+
+==================================================================================
