@@ -382,3 +382,16 @@ Animation States:
 
 
 ==================================================================================
+71. More Animation States
+
+Jump and Fall Animation States:
+
+Jump:
+* Same process, create AnimationState, enter AnimState, drag off Result, Play CaptainJump
+* Loop Animation:  FALSE
+  * We dont want this animation to loop
+* We didnt need to connect the Jump back to Run because when the player lands, it goes into Idle and then into Run.
+
+
+
+==================================================================================
